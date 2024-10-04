@@ -3,7 +3,7 @@ import json
 import requests
 
 # Target address
-address = '<address here>'
+address = '1Dorian4RoXcnBv9hnQ4Y2C1an6NJ4UrjX'
 
 resp = requests.get('https://blockchain.info/unspent?active=%s' % address)
 utxo_set = json.loads(resp.text)["unspent_outputs"]

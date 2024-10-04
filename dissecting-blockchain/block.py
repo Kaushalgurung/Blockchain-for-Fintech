@@ -78,4 +78,27 @@ if __name__ == "__main__":
     blockchain = Blockchain()
 
     # Add your code here
-    
+    blockchain.append_block("Blockchain")
+    blockchain.append_block("Is")
+    blockchain.append_block("Awesome")
+
+    # Print the entire blockchain
+    print("Orginal Blockchain:\n", blockchain)
+
+    # Modify the 3rd block's data (index 2)
+    blockchain.blocks[2].data = "Is very"
+    print("\nBlockchain after modifying the 3rd block:\n", blockchain)
+
+    # Validate the modified blockchain
+    is_valid = Blockchain.validate(blockchain.blocks)
+    print(f"\nIs the modified blockchain valid? {is_valid}")
+
+    # Calculate the correct hash of the final block to make the blockchain valid
+    if not is_valid:
+        print("\nThe modified blockchain is invalid.")
+        # Recalculate the correct hash for the last block by fixing the chain
+        blockchain.blocks[2] = Block(2, "Is very", blockchain.blocks[1].header_hash())
+        blockchain.blocks[3] = Block(3, "Awesome", blockchain.blocks[2].header_hash())
+        print("\nThe blockchain is now repaired:")
+        print(blockchain)
+        print(f"\nHash of the final block after repair: {blockchain.get_last_block().header_hash()}")
